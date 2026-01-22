@@ -48,4 +48,14 @@ Thumbs.db
 # 로그 파일
 *.log
 
+# 모델 파일 (매우 큼)
+pretrained_models/
+
+# 오디오/미디어 파일
+*.wav
+*.mp4
+*.mid
+*.mp3
+*.flac
+*.aac
 

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>노래방 음정 점수 측정 시스템</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎤 노래방 음정 점수 측정</h1>
+        </div>
+        
+        <div class="main-content">
+            <div class="score-section">
+                <div class="score-display">
+                    <div class="score-label">점수</div>
+                    <div class="score-value" id="score">0</div>
+                    <div class="score-bar">
+                        <div class="score-bar-fill" id="scoreBarFill"></div>
+                    </div>
+                </div>
+                <div class="accuracy-display">
+                    <div class="accuracy-label">정확도</div>
+                    <div class="accuracy-value" id="accuracy">0%</div>
+                </div>
+            </div>
+
+            <div class="control-section">
+                <button id="startBtn" class="btn btn-primary">시작</button>
+                <button id="stopBtn" class="btn btn-secondary" disabled>중지</button>
+                <button id="resetBtn" class="btn btn-reset">리셋</button>
+            </div>
+
+            <div class="audio-control-section">
+                <div class="volume-control">
+                    <label for="volumeSlider">음량</label>
+                    <input type="range" id="volumeSlider" min="0" max="100" value="70">
+                    <span id="volumeValue">70%</span>
+                </div>
+            </div>
+
+            <div class="graph-section">
+                <canvas id="pitchCanvas"></canvas>
+                <div class="graph-label">실시간 음정 그래프</div>
+            </div>
+
+            <div class="info-section">
+                <div class="info-item">
+                    <span class="info-label">상태:</span>
+                    <span class="info-value" id="status">대기 중</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">현재 음정:</span>
+                    <span class="info-value" id="currentPitch">- Hz</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">목표 음정:</span>
+                    <span class="info-value" id="targetPitch">- Hz</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <audio id="musicPlayer" crossorigin="anonymous">
+        <source src="assets/music1.mp4" type="video/mp4">
+    </audio>
+
+    <script src="script.js"></script>
+</body>
+</html>
+

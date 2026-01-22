@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>노래방 음정 점수 측정 시스템</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🎤 노래방 음정 점수 측정</h1>
+        </div>
+        
+        <div class="main-content">
+            <div class="score-section">
+                <div class="score-display">
+                    <div class="score-label">점수</div>
+                    <div class="score-value" id="score">0</div>
+                    <div class="score-bar">
+                        <div class="score-bar-fill" id="scoreBarFill"></div>
+                    </div>
+                </div>
+                <div class="accuracy-display">
+                    <div class="accuracy-label">정확도</div>
+                    <div class="accuracy-value" id="accuracy">0%</div>
+                </div>
+            </div>
+
+            <div class="control-section">
+                <button id="startBtn" class="btn btn-primary">시작</button>
+                <button id="stopBtn" class="btn btn-secondary" disabled>중지</button>
+                <button id="resetBtn" class="btn btn-reset">리셋</button>
+                <button id="skipBtn" class="btn btn-skip">반주 점프</button>
+            </div>
+
+            <div class="practice-section" id="practiceSection" style="display: none;">
+                <h3>🎵 구간별 연습</h3>
+                <div class="segment-controls">
+                    <label for="segmentSelect">연습할 구간 선택:</label>
+                    <select id="segmentSelect" class="segment-select">
+                        <option value="">전체 연주</option>
+                    </select>
+                    <button id="practiceBtn" class="btn btn-practice">구간 연습 시작</button>
+                </div>
+            </div>
+
+            <div class="audio-control-section">
+                <div class="volume-control">
+                    <label for="volumeSlider">음량</label>
+                    <input type="range" id="volumeSlider" min="0" max="100" value="70">
+                    <span id="volumeValue">70%</span>
+                </div>
+            </div>
+
+            <div class="graph-section">
+                <canvas id="pitchCanvas"></canvas>
+                <div class="graph-label">실시간 악보</div>
+            </div>
+
+            <div class="info-section">
+                <div class="info-item">
+                    <span class="info-label">상태:</span>
+                    <span class="info-value" id="status">대기 중</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">현재 음정:</span>
+                    <span class="info-value" id="currentPitch">-</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">목표 음정:</span>
+                    <span class="info-value" id="targetPitch">-</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <audio id="musicPlayer" crossorigin="anonymous">
+        <source src="{{ url_for('static', filename='assets/music1.mp4') }}" type="video/mp4">
+        <source src="{{ url_for('static', filename='assets/music1.mp4') }}" type="video/mp4">
+    </audio>
+
+    <!-- 전체 분석 결과 모달 -->
+    <div id="resultModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>🎵 전체 분석 결과</h2>
+            <div id="resultContent">
+                <div class="result-summary">
+                    <div class="result-item">
+                        <span class="result-label">전체 점수:</span>
+                        <span class="result-value" id="finalScore">0</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">평균 정확도:</span>
+                        <span class="result-value" id="finalAccuracy">0%</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">분석된 구간:</span>
+                        <span class="result-value" id="analyzedSegments">0개</span>
+                    </div>
+                </div>
+                <div class="result-details" id="resultDetails"></div>
+                <div class="result-actions">
+                    <button id="closeResultBtn" class="btn btn-primary">닫기</button>
+                    <button id="practiceAgainBtn" class="btn btn-practice">다시 연습하기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pitchfinder 라이브러리 (피치 감지용) -->
+    <script src="https://cdn.jsdelivr.net/npm/pitchfinder@2.2.2/dist/pitchfinder.min.js"></script>
+    <script src="{{ url_for('static', filename='js/utils.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
+
